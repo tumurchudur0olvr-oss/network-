@@ -1,0 +1,69 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+
+function App() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_URL}/api/dashboard/data`);
+      setData(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <div className="loading">Ачаалж байна...</div>;
+  if (error) return <div className="error">Алдаа: {error}</div>;
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>🌐 Мэдээлэл Холбоо Сүлжээ</h1>
+        <p>Администраторын Панель</p>
+      </header>
+
+      <main className="dashboard">
+        <div className="summary">
+          <div className="card">
+            <h3>Веб сайтууд</h3>
+            <p className="number">{data?.summary?.total_websites || 0}</p>
+          </div>
+          <div className="card">
+            <h3>Идэвхтэй Ажилууд</h3>
+            <p className="number">{data?.summary?.active_tasks || 0}</p>
+          </div>
+          <div className="card">
+            <h3>Сүүлийн Сайтын Мэдэгдэл</h3>
+            <p className="number">{data?.summary?.recent_alerts || 0}</p>
+          </div>
+        </div>
+
+        <section className="activities">
+          <h2>Сүүлийн Үйл Ажиллагаа</h2>
+          <div className="activity-list">
+            <p>Үйл ажиллагаа ачаалж байна...</p>
+          </div>
+        </section>
+      </main>
+
+      <footer className="App-footer">
+        <p>&copy; 2026 Мэдээлэл Холбоо Сүлжээ. Бүх эрх хуулиар хамгаалагдсан.</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
