@@ -1,115 +1,75 @@
-# Мэдээлэл Холбоо Сүлжээ (Information Network)
+# Information Network System
 
-Мэдээлэл ХолБоо сүлжээний сайтуудын цэвэрлэгээ, моторын үйл ажиллагааг хянах, вэб сайтыг үйл ажиллагаанаас хэмнэх систем.
+完全な Мэдээлэл Холбоо Сүлжээ системийн микросервис архитектур
 
-## 📋 Функцүүд
+## Features
 
-- ✅ **Web Scraping Service** - Сайтуудын мэдээллийг автоматаар цэвэрлэх
-- ✅ **Engine Monitoring** - Моторын үйл ажиллагааг хянах
-- ✅ **Dashboard** - Администраторын панель
-- ✅ **REST API** - Төлөвлөгөө API сервис
-- ✅ **Database** - PostgreSQL дата сангийн систем
+✅ Web Scraping Service
+✅ Engine Monitoring
+✅ Admin Dashboard
+✅ REST API Gateway
+✅ User Authentication
+✅ Audit Logging
+✅ PostgreSQL Database
+✅ Redis Cache
+✅ Docker Containerization
 
-## 🏗️ Архитектур
-
-```
-┌─────────────────────────────────────────────┐
-│        Frontend (Admin Dashboard)           │
-│        React.js / Vue.js                    │
-└──────────────────┬──────────────────────────┘
-                   │
-┌──────────────────┴──────────────────────────┐
-│          API Gateway (Node.js)              │
-│   Express.js, REST API, WebSocket          │
-└──────────────────┬──────────────────────────┘
-                   │
-        ┌──────────┴──────────┬──────────┐
-        │                     │          │
-   ┌────▼────┐         ┌─────▼────┐   ┌─▼────────┐
-   │ Scraper │         │Monitoring│   │ Database │
-   │(Python) │         │(Python)  │   │PostgreSQL│
-   └─────────┘         └──────────┘   └──────────┘
-```
-
-## 📁 Төслийн бүтэц
-
-```
-network-/
-├── backend/
-│   ├── api/                    # Node.js API Gateway
-│   │   ├── package.json
-│   │   ├── server.js
-│   │   ├── config/
-│   │   ├── routes/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   └── utils/
-│   ├── scraper/                # Python Web Scraper
-│   │   ├── requirements.txt
-│   │   ├── main.py
-│   │   ├── scrapers/
-│   │   ├── config.py
-│   │   └── utils/
-│   └── monitoring/             # Python Engine Monitor
-│       ├── requirements.txt
-│       ├── main.py
-│       ├── monitors/
-│       └── config.py
-├── frontend/                   # Admin Dashboard
-│   ├── package.json
-│   ├── index.html
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── App.js
-│   └── public/
-├── database/                   # Database migrations
-│   ├── migrations/
-│   └── seeds/
-├── docker-compose.yml
-├── .gitignore
-├── .env.example
-└── README.md
-```
-
-## 🚀 Эхлүүлэх
-
-### Шаардлагатай:
-- Docker & Docker Compose
-- Python 3.9+
-- Node.js 16+
-- PostgreSQL 13+
-
-### Суулгалт:
+## Quick Start
 
 ```bash
-# Төслийг clone хийх
 git clone https://github.com/tumurchudur0olvr-oss/network-.git
 cd network-
-
-# Environment файл нийтэлэх
 cp .env.example .env
-
-# Docker дээр ажиллуулах
 docker-compose up -d
-
-# Суулгалт дуусахыг хүлээх
-docker-compose logs -f
 ```
 
-## 📚 Сургалт
+## Services
 
-- [Backend Setup Guide](./docs/BACKEND.md)
-- [Frontend Setup Guide](./docs/FRONTEND.md)
-- [API Documentation](./docs/API.md)
-- [Database Schema](./docs/DATABASE.md)
+- 🎨 Dashboard: http://localhost:3001
+- 🔌 API: http://localhost:3000
+- 🕷️ Scraper: http://localhost:5001
+- 📊 Monitoring: http://localhost:5002
+- 🗄️ Database: localhost:5432
+- 💾 Redis: localhost:6379
 
-## 📞 Холбоо
+## API Endpoints
 
-- GitHub Issues: [Report bugs](https://github.com/tumurchudur0olvr-oss/network-/issues)
-- Discussions: [Join community](https://github.com/tumurchudur0olvr-oss/network-/discussions)
+### Dashboard
+- GET /api/dashboard/data
+- GET /api/dashboard/stats
 
----
-**Үүсгэгч**: tumurchudur0olvr-oss  
-**Эхлүүлсэн**: 2026-05-15
+### Scraper
+- GET /api/scraper/tasks
+- POST /api/scraper/start
+- GET /api/scraper/status/:id
+
+### Monitoring
+- GET /api/monitoring/status
+- GET /api/monitoring/websites
+- GET /api/monitoring/alerts
+
+### Users
+- POST /api/users/login
+- POST /api/users/register
+- GET /api/users/profile
+
+### Audit
+- GET /api/audit/logs
+- GET /api/audit/logs/:start/:end
+
+## Technologies
+
+- Node.js/Express
+- Python/Flask
+- React
+- PostgreSQL
+- Redis
+- Docker
+
+## Author
+
+tumurchudur0olvr-oss
+
+## License
+
+MIT
